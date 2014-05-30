@@ -1,0 +1,8 @@
+Scott Moser is a technical lead on the Ubuntu Server and Cloud team at
+Canonical.  He works on cloud-like things such as cloud-init, Ubuntu cloud
+images, OpenStack and cirrOS.  He has more experience with programming in 'sh'
+than you probably care to hear about.
+
+The talk on shell scripting^H^H^H^H^H^H^H^programming will discuss ways to make
+your shell scripts less brittle, and more performant.  And will also try to
+convince you that shell still has its place.
