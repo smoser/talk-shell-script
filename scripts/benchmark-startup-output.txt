@@ -1,0 +1,8 @@
+:                   real 0m0.003s user 0m0.003s sys 0m0.000s
+true                real 0m0.905s user 0m0.252s sys 0m0.724s
+sh                  real 0m1.118s user 0m0.383s sys 0m0.806s
+bash                real 0m1.942s user 0m0.753s sys 0m1.276s
+perl                real 0m2.723s user 0m1.154s sys 0m1.649s
+python2             real 0m18.040s user 0m12.412s sys 0m5.593s
+python3             real 0m26.271s user 0m20.705s sys 0m5.552s
+ruby                real 0m0.000s user 0m0.000s sys 0m0.000s
