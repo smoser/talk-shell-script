@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# this is a common mistake.
+countlines() {
+    lines=$(cat /this/file/does/not/exist | wc -l >/dev/null)
+    ret=$?
+    if [ $ret -ne 0 ]; then
+       echo "Something went wrong!"
+       return $ret
+    fi
+    echo "There were \"$lines\" lines in the file"
+    return
+}
+
+countlines;
+echo "countlines returned [$?]"
+
+# But with the aid of pipefail, you catch the error.
+set -o pipefail
+countlines
+echo "countlines returned [$?]"
+
+
+checkret() {
+   local i=""
+   for i in "$@"; do
+      [ "$i" = "0" ] || return 1
+   done
+}
+false | true
+
+echo "${BASH_PIPESTATUS[@]}"

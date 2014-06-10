@@ -1,0 +1,22 @@
+#!/bin/bash
+
+myarray=(
+   "item 1"   # this is a comment
+   item_2
+   "third item here"
+)
+
+myarray[${#myarray[@]}]="Add an item"
+
+
+echo "traverse via list"
+for entry in "${myarray[@]}"; do
+   echo "${entry}"
+done
+echo
+
+echo "now via array indices"
+
+for((i=0;i<${#myarray[@]};i++)); do
+   echo "$i: ${myarray[$i]}"
+done
