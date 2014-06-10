@@ -1,0 +1,36 @@
+#!/bin/sh
+
+checknum() {
+   local num="$1"
+   if [ $num -ne 1 ]; then
+      echo "num was not 1!"
+      return 1;
+   else
+      echo "yep, num was 1";
+      return 0;
+   fi
+}
+
+checknum2() {
+   local num="$1"
+   if [ $num -eq 1 ]; then
+      echo "yep, num was 1"
+      return 0
+   else
+      echo "num was not 1!"
+      return 1
+   fi
+}
+
+# These seem to work fine
+checknum 1
+checknum 2
+
+# But what about this
+echo "checknum a"
+checknum a
+## ./scripts/negative-logic: 5: [: Illegal number: a
+## yep, num was 1
+
+echo "checknum2 a"
+checknum2 a
