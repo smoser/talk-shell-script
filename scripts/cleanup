@@ -1,0 +1,10 @@
+#!/bin/sh
+TEMP_D=""
+
+TEMP_D=$(mktemp -d "${TMPDIR:-${0##*/}.XXXXXX)
+cleanup() {
+   [ -z "${TEMP_D}" -o ! -d "${TEMP_D}" ] || rm -Rf "${TEMP_D}"
+}
+trap cleanup EXIT
+
+# now use TEMP_D for files
