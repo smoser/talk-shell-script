@@ -47,7 +47,7 @@
       \begin{itemize}
          \item your system load is 200, figure out why.
          \item tab completion
-         \item boot time (hint, boot uses a lot of shell). 180 forks to init. 1059 to rc.local
+         \item boot time (hint, boot uses a lot of shell). 180 forks to init. 1059 to rc.local.
       \end{itemize}
    \end{itemize}
 \end{frame}
@@ -56,41 +56,45 @@
    \frametitle{Why Else?}
    \begin{itemize}
       \item copy and pasteable
-      \item it actually *is* ubiquitus
+      \item /bin/sh actually *is* ubiquitus . openwrt, bsd, its just always there.
+      \item sometimes its the only thing available.
+      \item sometimes its actually the simplist thing.
    \end{itemize}
 \end{frame}
 
 \begin{frame}
-   \frametitle Shell Scripting to Shell Programming
+   \frametitle{Shell Scripting to Shell Programming}
    \begin{itemize}
       \item functions and return values
+      \item declare and initialize variables
+      \item Usage
       \item set -f
-      \item newscript
+      \item \href{https://github.com/smoser/talk-shell-script/blob/master/scripts/newscript}{newscript}
       \item getopt
+      \item \href{https://github.com/smoser/talk-shell-script/blob/master/scripts/negative-logic}{negative-logic}
    \end{itemize}
 \end{frame}
 
 \begin{frame}
-   \frametitle Tips and tricks
+   \frametitle{Tips and tricks}
    \begin{itemize}
-      \item ARRAYS!
-      \item hashes
+      \item Use "standard tools" (awk, sed, sh)
+      \item \href{https://github.com/smoser/talk-shell-script/blob/master/scripts/cleanup}{cleanup}
+      \item \$\{varname:+foo\} and \$\{varname:-foo\}
    \end{itemize}
 \end{frame}
 
 \begin{frame}
-   \frametitle Why bash?
+   \frametitle{Why bash?}
    \begin{itemize}
-      \item real arrays
-      \item \${HOME//e/ie}
-      \item for((i=0;i<10;i++)); do echo \$i; done
-      \item ARRAYS!
+      \item \href{https://github.com/smoser/talk-shell-script/blob/master/scripts/arrays}{real arrays}
+      \item \$\{HOME//e/ie\}
       \item hashes
       \item better trap
+      \item \href{https://github.com/smoser/talk-shell-script/blob/master/scripts/}{\$BASH\_PIPESTATUS}
       \item \$RANDOM
       \item \$SECONDS
    \end{itemize}
 \end{frame}
-
 
 \end{document}
