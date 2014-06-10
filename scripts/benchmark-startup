@@ -1,0 +1,30 @@
+#!/bin/bash
+count="${1:-1000}"
+TIMEFORMAT='real %3lR user %3lU sys %3lS'
+
+args=""
+for((i=0; i<count;i++)); do args="${args} ."; done
+
+printf "%-20s" ":"
+time for i in $args; do :; done
+
+printf "%-20s" "true"
+time for i in $args; do /bin/true -c ":"; done
+
+printf "%-20s" "sh"
+time for i in $args; do /bin/sh -c ":"; done
+
+printf "%-20s" "bash"
+time for i in $args; do /bin/bash -c ":"; done
+
+printf "%-20s" "perl"
+time for i in $args; do /usr/bin/perl -e 'exit(0);'; done
+
+printf "%-20s" "python2"
+time for i in $args; do /usr/bin/python2 -c 'exit(0);'; done
+
+printf "%-20s" "python3"
+time for i in $args; do /usr/bin/python3 -c 'exit(0);'; done
+
+printf "%-20s" ruby
+time for i in "$@"; do ruby -e "exit(0)"; done
