@@ -1,5 +1,6 @@
 - local variable that makes 'set -f' local to function.
 - quoting
+- use local
 - braces : ni
 - undeclared variables / leaked from environment
 - bash:
@@ -7,3 +8,15 @@
   - real arrays
 - performance
   https://gist.github.com/smoser/9780744
+- gotchas:
+  - declaration masks return
+    set -e
+    foo() {
+       local x=$(false)
+    }
+
+- BASH_PIPESTATUS
+- $RET
+- $RANDOM , $SECONDS
+- trap (cleanup)
+- 
