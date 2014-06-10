@@ -1,0 +1,99 @@
+#!/bin/sh
+
+Usage() { 
+	cat <<EOF
+Usage: ${0##*/} [--spaces] filename
+   create a new template script in 'filename'
+   --spaces: use spaces, not tabs for indent.
+EOF
+}
+
+
+[ "$1" = "-h" -o "$1" = "--help" ] && { Usage ; exit 0; }
+[ "$1" = "--spaces" ] && { spaces=true; shift; } || spaces=false
+[ $# -eq 1 ] || { Usage 1>&2; exit 1; }
+file="${1}"
+
+cat > "${file}" <<"ENDEND"
+#!/bin/bash
+
+VERBOSITY=0
+TEMP_D=""
+
+error() { echo "$@" 1>&2; }
+errorp() { printf "$@" 1>&2; }
+fail() { [ $# -eq 0 ] || error "$@"; exit 1; }
+failp() { [ $# -eq 0 ] || errorp "$@"; exit 1; }
+
+Usage() {
+	cat <<EOF
+Usage: ${0##*/} [ options ] <<ARGUMENTS>>
+
+   <<SUMMARY HERE>>
+
+   options:
+      <<OPTIONS HERE>>
+EOF
+}
+
+bad_Usage() { Usage 1>&2; [ $# -eq 0 ] || error "$@"; return 1; }
+cleanup() {
+	[ -z "${TEMP_D}" -o ! -d "${TEMP_D}" ] || rm -Rf "${TEMP_D}"
+}
+
+debug() {
+	local level=${1}; shift;
+	[ "${level}" -gt "${VERBOSITY}" ] && return
+	error "${@}"
+}
+
+main() {
+	local short_opts="ho:v"
+	local long_opts="help,output:,verbose"
+	local getopt_out=""
+	getopt_out=$(getopt --name "${0##*/}" \
+		--options "${short_opts}" --long "${long_opts}" -- "$@") &&
+		eval set -- "${getopt_out}" ||
+		{ bad_Usage; return; }
+
+	## <<insert default variables here>>
+	local cur="" next=""
+	local output=""
+
+	while [ $# -ne 0 ]; do
+		cur="$1"; next="$2";
+		case "$cur" in
+			-h|--help) Usage ; exit 0;;
+			-o|--output) output=$next; shift;;
+			-v|--verbose) VERBOSITY=$((${VERBOSITY}+1));;
+			--) shift; break;;
+		esac
+		shift;
+	done
+
+	## check arguments here
+	## how many args do you expect?
+	[ $# -ne 0 ] || { bad_Usage "must provide arguments"; return; }
+	#[ $# -lt 3 ] && { bad_Usage "must provide 3 args"; return; }
+
+	TEMP_D=$(mktemp -d "${TMPDIR:-/tmp}/${0##*/}.XXXXXX") ||
+		fail "failed to make tempdir"
+	trap cleanup EXIT
+
+	# program starts here
+
+	echo "Hello World."
+	i=0; for x in "$@"; do i=$(($i+1)); echo "arg[$i]:$x"; done
+	return 0
+}
+
+main "$@"
+ENDEND
+if $spaces; then
+   echo "# vi: ts=4 expandtab" >> "$file"
+   sed -i 's,	,    ,g' "$file"
+else
+   echo "# vi: ts=4 noexpandtab" >> "$file"
+fi
+
+chmod 755 "${file}"
