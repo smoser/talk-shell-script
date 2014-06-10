@@ -1,0 +1,8 @@
+#!/bin/sh
+
+myname="/etc/pass*"
+set +f
+echo "set+f: " $myname
+
+set -f
+echo "set-f: " $myname
