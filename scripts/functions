@@ -1,0 +1,17 @@
+#!/bin/sh
+
+greeting() {
+   echo "Hi $1"
+}
+
+ngreeting() {
+   _RET="Hi $1"
+}
+
+fail() { echo "$@" 1>&2; exit 1; }
+
+msg=$(greeting "smoser") || fail "failed greeting"
+echo "greeting: $msg"
+
+ngreeting "smoser" || fail "failed ngreeting"
+echo "ngreeting: $_RET"
