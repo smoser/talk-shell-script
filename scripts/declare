@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# environment variables become shell variables by default
+# ie, you most likely already have a variable
+
+cat <<EOF
+Environment variables are turned into shell variables.
+So you already have some set, most likely:
+  HOME=$HOME
+  LOGNAME=$LOGNAME
+EOF
+
+cat <<EOF
+That is a good thing, if you're expecting it.
+But if you're not expecting it, then it can screw you up.
+EOF
+
+uid=$(id -u)
+if [ $uid -eq 0 ]; then
+   isroot=true
+else
+   echo "you are not root"
+fi
+
+if $isroot; then
+   echo "Great, you're root"
+fi
